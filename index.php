@@ -18,14 +18,11 @@ if (!file_exists($autoload)) {
 }
 require_once $autoload;
 
-use MercadoPago\MercadoPagoConfig;
-use MercadoPago\Client\Payment\RequestOptions;
 use MercadoPago\Client\Payment\PaymentClient;
 use MercadoPago\Exceptions\MPApiException;
-use MercadoPago\MercadoPagoConfig;
 
 // Configurar credenciais (use seu token real)
-MercadoPagoConfig::setAccessToken("APP_USR-6493240016618428-080712-7ed5d6b7842b265508c0411fa147e896-1782895287");
+\MercadoPago\MercadoPagoConfig::setAccessToken("APP_USR-6493240016618428-080712-7ed5d6b7842b265508c0411fa147e896-1782895287");
 
 // =============================
 // API simples para PIX (JSON)
