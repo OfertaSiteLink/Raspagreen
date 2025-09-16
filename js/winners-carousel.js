@@ -243,3 +243,4 @@ if (!window.winnersCarouselInitialized) {
         setTimeout(initCarousel, 0);
     }
 }
+
