@@ -969,6 +969,8 @@
                                   async function createPix() {
                                     try {
                                       payBtn.disabled = true;
+                                      // Mostrar a seção do PIX imediatamente para exibir mensagens de status
+                                      pixSection.style.display = 'block';
                                       statusBox.style.display = 'block';
                                       statusBox.innerHTML = '<i class="fas fa-spinner fa-spin"></i> <span>Gerando cobrança PIX...</span>';
 
@@ -1022,8 +1024,10 @@
                                       poll();
 
                                     } catch (e) {
+                                      pixSection.style.display = 'block';
                                       statusBox.style.display = 'block';
                                       statusBox.innerHTML = `<span style="color:#f87171">${e.message}</span>`;
+                                      try { console.error(e); } catch {}
                                       payBtn.disabled = false;
                                     }
                                   }
