@@ -1,12 +1,11 @@
 <?php
 require_once __DIR__ . '/vendor/autoload.php';
 
-use MercadoPago\MercadoPagoConfig;
 use MercadoPago\Client\Payment\PaymentClient;
 use MercadoPago\Exceptions\MPApiException;
 
 // Set your credentials
-MercadoPagoConfig::setAccessToken("APP_USR-6493240016618428-080712-7ed5d6b7842b265508c0411fa147e896-1782895287");
+\MercadoPago\MercadoPagoConfig::setAccessToken("APP_USR-6493240016618428-080712-7ed5d6b7842b265508c0411fa147e896-1782895287");
 
 header('Content-Type: application/json');
 
@@ -47,3 +46,4 @@ try {
         'error' => $e->getMessage()
     ]);
 }
+
