@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raspadinha Online</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/premios.css">
+
+    
+    <link rel="alternate icon" type="image/png" href="favicon.png">
+    
+
+    <link rel="icon" type="image/png" href="/images/trevo.png">
+    <link rel="shortcut icon" type="image/png" href="/images/trevo.png">
+    <link rel="apple-touch-icon" href="/images/trevo.png">
+</head>
+<body>
+    <!-- Header Preto -->
+    <header>
+        <div class="header-content">
+            <div class="header-left">
+                <!-- Imagem que você irá substituir pela sua -->
+                <img src="/images/logo.png" alt="Logo Raspadinha" class="header-image">
+                <div class="logo">                                        
+                </div>
+            </div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Menu">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav id="mainNav">
+                <ul>
+                    <li><a href="/">Início</a></li>
+                    <li><a href="/sorteinstantanea.html">Sorte Instantânea</a></li>
+                    <li><a href="/raspasuprema.html">Raspa Suprema</a></li>
+                    <li><a href="raspadelampago.html">Raspa Relâmpago</a></li>
+                    <li><a href="/raspadinhamagica.html">Raspadinha Mágica</a></li>
+                    <li><a href="/centavodasorte.html">Centavo da Sorte</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- Área de Banners com tamanho 1284x357 -->
+    <div class="banner-container">
+        <div class="banner active" id="banner1">
+            <img src="/images/banner1.png" alt="Promoção Especial Raspadinhas">
+        </div>
+        <div class="banner" id="banner2">
+            <img src="/images/banner2.png" alt="Novo Jogo Disponível">
+        </div>
+    </div>
+    
+    <!-- Seção de Ganhadores -->
+    <section class="winners-section">
+        <div class="winners-container">
+                <div class="winner-icon" aria-hidden="true">
+                    <img src="/images/aovivo.png" alt="Ao vivo" class="live-icon">
+                </div>
+            <div class="winners-swiper" tabindex="0" aria-label="Lista de ganhadores recentes">
+                <div class="swiper-wrapper" aria-live="polite">
+                    <div class="swiper-slide" role="listitem" aria-label="João Silva ganhou um PlayStation 5 na Sorte Instantânea">
+                        <div class="winner-card">
+                            <div class="prize-image-container">
+                                <img src="/images/playstation5.png" alt="" class="prize-image" aria-hidden="true">
+                                <span class="sr-only">PlayStation 5</span>
+                            </div>
+                            <div class="winner-info">
+                                <span class="winner-name">João Silva</span>
+                                <span class="winner-prize">PlayStation 5</span>
+                                <span class="winner-amount">na Sorte Instantânea</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide" role="listitem" aria-label="Maria Santos ganhou R$ 700,00 no Centavo da Sorte">
+                        <div class="winner-card">
+                            <div class="prize-image-container">
+                                <img src="/images/valoresaltos.png" alt="" class="prize-image" aria-hidden="true">
+                                <span class="sr-only">R$ 700,00</span>
+                            </div>
+                            <div class="winner-info">
+                                <span class="winner-name">Maria Santos</span>
+                                <span class="winner-prize">R$ 700,00</span>
+                                <span class="winner-amount">no Centavo da Sorte</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide" role="listitem" aria-label="Pedro Costa ganhou um iPhone 14 Pro na Raspa Suprema">
+                        <div class="winner-card">
+                            <div class="prize-image-container">
+                                <img src="/images/iphone15.png" alt="" class="prize-image" aria-hidden="true">
+                                <span class="sr-only">iPhone 14 PRO</span>
+                            </div>
+                            <div class="winner-info">
+                                <span class="winner-name">Pedro Costa</span>
+                                <span class="winner-prize">iPhone 14 PRO</span>
+                                <span class="winner-amount">na Raspa Suprema</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide" role="listitem" aria-label="Ana Oliveira ganhou uma Honda Pop 110i na Raspa Relâmpago">
+                        <div class="winner-card">
+                            <div class="prize-image-container">
+                                <img src="/images/pop110.png" alt="" class="prize-image" aria-hidden="true">
+                                <span class="sr-only">Honda POP 110i</span>
+                            </div>
+                            <div class="winner-info">
+                                <span class="winner-name">Ana Oliveira</span>
+                                <span class="winner-prize">Honda POP 110i</span>
+                                <span class="winner-amount">na Raspa Relâmpago</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide" role="listitem" aria-label="Carlos Rocha ganhou R$ 10,00 na Raspadinha Mágica">
+                        <div class="winner-card">
+                            <div class="prize-image-container">
+                                <img src="/images/10reais.png" alt="" class="prize-image" aria-hidden="true">
+                                <span class="sr-only">R$ 10,00</span>
+                            </div>
+                            <div class="winner-info">
+                                <span class="winner-name">Carlos Rocha</span>
+                                <span class="winner-prize">R$ 10,00</span>
+                                <span class="winner-amount">na Raspadinha Mágica</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide" role="listitem" aria-label="Fernanda Lima ganhou R$ 5,00 na Raspa Relâmpago">
+                        <div class="winner-card">
+                            <div class="prize-image-container">
+                                <img src="/images/5reais.png" alt="" class="prize-image" aria-hidden="true">
+                                <span class="sr-only">R$ 5,00</span>
+                            </div>
+                            <div class="winner-info">
+                                <span class="winner-name">Fernanda Lima</span>
+                                <span class="winner-prize">R$ 5,00</span>
+                                <span class="winner-amount">na Raspa Relâmpago</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide" role="listitem" aria-label="Rafaela Martins ganhou R$ 1,00 na Sorte Instantânea">
+                        <div class="winner-card">
+                            <div class="prize-image-container">
+                                <img src="/images/1real.png" alt="" class="prize-image" aria-hidden="true">
+                                <span class="sr-only">R$ 1,00</span>
+                            </div>
+                            <div class="winner-info">
+                                <span class="winner-name">Rafaela Martins</span>
+                                <span class="winner-prize">R$ 1,00</span>
+                                <span class="winner-amount">na Sorte Instantânea</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide" role="listitem" aria-label="Juliana Mendes ganhou uma Caixa de Som JBL na Sorte Instantânea">
+                        <div class="winner-card">
+                            <div class="prize-image-container">
+                                <img src="/images/caixajbl.png" alt="" class="prize-image" aria-hidden="true">
+                                <span class="sr-only">Caixa de Som JBL</span>
+                            </div>
+                            <div class="winner-info">
+                                <span class="winner-name">Juliana Mendes</span>
+                                <span class="winner-prize">Caixa de Som JBL</span>
+                                <span class="winner-amount">na Sorte Instantânea</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide" role="listitem" aria-label="Lucas Almeida ganhou um Smartphone na Raspa Suprema">
+                        <div class="winner-card">
+                            <div class="prize-image-container">
+                                <img src="/images/smartphone.png" alt="" class="prize-image" aria-hidden="true">
+                                <span class="sr-only">Smartphone</span>
+                            </div>
+                            <div class="winner-info">
+                                <span class="winner-name">Lucas Almeida</span>
+                                <span class="winner-prize">20,00</span>
+                                <span class="winner-amount">na Raspa Suprema</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide" role="listitem" aria-label="Patrícia Gomes ganhou uma Geladeira Brastemp na Raspadinha Mágica">
+                        <div class="winner-card">
+                            <div class="prize-image-container">
+                                <img src="/images/geladeira.png" alt="" class="prize-image" aria-hidden="true">
+                                <span class="sr-only">Geladeira Brastemp</span>
+                            </div>
+                            <div class="winner-info">
+                                <span class="winner-name">Patrícia Gomes</span>
+                                <span class="winner-prize">Geladeira Brastemp</span>
+                                <span class="winner-amount">na Raspadinha Mágica</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide" role="listitem" aria-label="Roberto Nunes ganhou um Copo Stanley no Centavo da Sorte">
+                        <div class="winner-card">
+                            <div class="prize-image-container">
+                                <img src="/images/copostanley.png" alt="" class="prize-image" aria-hidden="true">
+                                <span class="sr-only">Copo Stanley</span>
+                            </div>
+                            <div class="winner-info">
+                                <span class="winner-name">Roberto Nunes</span>
+                                <span class="winner-prize">Copo Stanley</span>
+                                <span class="winner-amount">no Centavo da Sorte</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide" role="listitem" aria-label="Tatiane Rocha ganhou um Fone de Ouvido na Sorte Instantânea">
+                        <div class="winner-card">
+                            <div class="prize-image-container">
+                                <img src="/images/fonedeouvido.png" alt="" class="prize-image" aria-hidden="true">
+                                <span class="sr-only">Fone de Ouvido</span>
+                            </div>
+                            <div class="winner-info">
+                                <span class="winner-name">Tatiane Rocha</span>
+                                <span class="winner-prize">Fone de Ouvido</span>
+                                <span class="winner-amount">na Sorte Instantânea</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide" role="listitem" aria-label="Felipe Castro ganhou uma Capinha Transparente na Raspa Relâmpago">
+                        <div class="winner-card">
+                            <div class="prize-image-container">
+                                <img src="/images/capinhatransparente.png" alt="" class="prize-image" aria-hidden="true">
+                                <span class="sr-only">Capinha Transparente</span>
+                            </div>
+                            <div class="winner-info">
+                                <span class="winner-name">Felipe Castro</span>
+                                <span class="winner-prize">Capinha Transparente</span>
+                                <span class="winner-amount">na Raspa Relâmpago</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide" role="listitem" aria-label="Ricardo Alves ganhou R$ 5.000,00 na Raspa Suprema">
+                        <div class="winner-card">
+                            <div class="prize-image-container">
+                                <img src="/images/valoresaltos.png" alt="" class="prize-image" aria-hidden="true">
+                                <span class="sr-only">R$ 5.000,00</span>
+                            </div>
+                            <div class="winner-info">
+                                <span class="winner-name">Ricardo Alves</span>
+                                <span class="winner-prize">R$ 5.000,00</span>
+                                <span class="winner-amount">na Raspa Suprema</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="winner-card">
+                            <img src="/images/valoresaltos.png" alt="Prêmio em Dinheiro" class="prize-image">
+                            <div class="winner-info">
+                                <span class="winner-name">Fernanda Costa</span>
+                                <span class="winner-prize">R$ 10.000,00</span>
+                                <span class="winner-amount">na Sorte Instantânea</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="winner-card">
+                            <img src="/images/valoresaltos.png" alt="Prêmio em Dinheiro" class="prize-image">
+                            <div class="winner-info">
+                                <span class="winner-name">Gustavo Mendes</span>
+                                <span class="winner-prize">R$ 7.500,00</span>
+                                <span class="winner-amount">na Raspa Relâmpago</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="winner-card">
+                            <div class="prize-image-container">
+                                <img src="/images/valoresaltos.png" alt="" class="prize-image" aria-hidden="true">
+                                <span class="sr-only">R$ 15.000,00</span>
+                            </div>
+                            <div class="winner-info">
+                                <span class="winner-name">Carolina Rocha</span>
+                                <span class="winner-prize">R$ 15.000,00</span>
+                                <span class="winner-amount">na Raspadinha Mágica</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="winner-card">
+                            <div class="prize-image-container">
+                                <img src="/images/valoresaltos.png" alt="" class="prize-image" aria-hidden="true">
+                                <span class="sr-only">R$ 25.000,00</span>
+                            </div>
+                            <img src="/images/valoresaltos.png" alt="Prêmio em Dinheiro" class="prize-image">
+                            <div class="winner-info">
+                                <span class="winner-name">Rodrigo Almeida</span>
+                                <span class="winner-prize">R$ 25.000,00</span>
+                                <span class="winner-amount">na Raspa Suprema</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide" role="listitem" aria-label="Larissa Martins ganhou R$ 30.000,00 na Sorte Instantânea">
+                        <div class="winner-card">
+                            <div class="prize-image-container">
+                                <img src="/images/valoresaltos.png" alt="" class="prize-image" aria-hidden="true">
+                                <span class="sr-only">R$ 30.000,00</span>
+                            </div>
+                            <div class="winner-info">
+                                <span class="winner-name">Larissa Martins</span>
+                                <span class="winner-prize">R$ 30.000,00</span>
+                                <span class="winner-amount">na Sorte Instantânea</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="winner-card">
+                            <img src="/images/valoresaltos.png" alt="Prêmio em Dinheiro" class="prize-image">
+                            <div class="winner-info">
+                                <span class="winner-name">Marcos Vinícius</span>
+                                <span class="winner-prize">R$ 2.500,00</span>
+                                <span class="winner-amount">na Raspadinha Mágica</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide" role="listitem" aria-label="Patrícia Lima ganhou R$ 100.000,00 na Raspa Suprema">
+                        <div class="winner-card">
+                            <div class="prize-image-container">
+                                <img src="/images/valoresaltos.png" alt="" class="prize-image" aria-hidden="true">
+                                <span class="sr-only">R$ 100.000,00</span>
+                            </div>
+                            <div class="winner-info">
+                                <span class="winner-name">Patrícia Lima</span>
+                                <span class="winner-prize">R$ 100.000,00</span>
+                                <span class="winner-amount">na Raspa Suprema</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="winner-card">
+                            <img src="/images/valoresaltos.png" alt="Prêmio em Dinheiro" class="prize-image">
+                            <div class="winner-info">
+                                <span class="winner-name">Fernanda Rocha</span>
+                                <span class="winner-prize">R$ 2.500,00</span>
+                                <span class="winner-amount">na Sorte Instantânea</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="winner-card">
+                            <img src="/images/valoresaltos.png" alt="Prêmio em Dinheiro" class="prize-image">
+                            <div class="winner-info">
+                                <span class="winner-name">Gustavo Henrique</span>
+                                <span class="winner-prize">R$ 10.000,00</span>
+                                <span class="winner-amount">na Raspa Relâmpago</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="winner-card">
+                            <img src="/images/valoresaltos.png" alt="Prêmio em Dinheiro" class="prize-image">
+                            <div class="winner-info">
+                                <span class="winner-name">Amanda Santos</span>
+                                <span class="winner-prize">R$ 7.500,00</span>
+                                <span class="winner-amount">na Sorte Instantânea</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- CONTAINER DAS RASPADINHAS -->
+    <div class="scratch-cards-container">
+        <!-- CARTÃO 1 - CENTAVO DA SORTE -->
+        <div class="scratch-card">
+            <div class="scratch-banner">
+                <img src="/images/centavo.png" alt="Centavo da Sorte">
+            </div>
+            <div class="scratch-info">
+                <div class="info-header">
+                    <h1 class="scratch-title">Centavo da Sorte</h1>
+                    <h2 class="scratch-prizes">PRÊMIOS DE ATÉ R$ 1.000,00</h2>
+                </div>
+                <div class="scratch-actions">
+                    <a href="/centavodasorte.html?jogo=centavo-sorte" class="play-button">
+                        <div class="button-content">
+                            <div class="play-text">
+                                <svg fill="currentColor" viewBox="0 0 256 256" width="20" height="20" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M198.51 56.09C186.44 35.4 169.92 24 152 24h-48c-17.92 0-34.44 11.4-46.51 32.09C46.21 75.42 40 101 40 128s6.21 52.58 17.49 71.91C69.56 220.6 86.08 232 104 232h48c17.92 0 34.44-11.4 46.51-32.09C209.79 180.58 216 155 216 128s-6.21-52.58-17.49-71.91Zm1.28 63.91h-32a152.8 152.8 0 0 0-9.68-48h30.59c6.12 13.38 10.16 30 11.09 48Zm-20.6-64h-28.73a83 83 0 0 0-12-16H152c10 0 19.4 6 27.19 16ZM152 216h-13.51a83 83 0 0 0 12-16h28.73C171.4 210 162 216 152 216Zm36.7-32h-30.58a152.8 152.8 0 0 0 9.68-48h32c-.94 18-4.98 34.62-11.1 48Z"></path>
+                                </svg>
+                                <span>Jogar</span>
+                            </div>
+                            <div class="price-tag">
+                                <span class="currency">R$</span>
+                                <span class="amount">0,50</span>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="/centavodasorte.html?jogo=centavo-sorte" class="rewards-link">
+                        <svg viewBox="0 0 512 512" fill="currentColor" width="16" height="16" xmlns="http://www.w3.org/2000/svg">
+                            <path d="m190.5 68.8 34.8 59.2H152c-22.1 0-40-17.9-40-40s17.9-40 40-40h2.2c14.9 0 28.8 7.9 36.3 20.8zM64 88c0 14.4 3.5 28 9.6 40H32c-17.7 0-32 14.3-32 32v64c0 17.7 14.3 32 32 32h448c17.7 0 32-14.3 32-32v-64c0-17.7-14.3-32-32-32h-41.6c6.1-12 9.6-25.6 9.6-40 0-48.6-39.4-88-88-88h-2.2c-31.9 0-61.5 16.9-77.7 44.4L256 85.5l-24.1-41C215.7 16.9 186.1 0 154.2 0H152c-48.6 0-88 39.4-88 88zm336 0c0 22.1-17.9 40-40 40h-73.3l34.8-59.2c7.6-12.9 21.4-20.8 36.3-20.8h2.2c22.1 0 40 17.9 40 40zM32 288v176c0 26.5 21.5 48 48 48h144V288zm256 224h144c26.5 0 48-21.5 48-48V288H288z"></path>
+                        </svg>
+                        <span>VER PRÊMIOS</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- CARTÃO 2 - MILHARADA -->
+        <div class="scratch-card">
+            <div class="scratch-banner">
+                <img src="/images/sorteinstantanea.png" alt="Sorte Instantânea">
+            </div>
+            <div class="scratch-info">
+                <div class="info-header">
+                    <h1 class="scratch-title">Sorte Instantânea</h1>
+                    <h2 class="scratch-prizes">PRÊMIOS DE ATÉ R$ 2.500,00</h2>
+                </div>
+                <div class="scratch-actions">
+                    <a href="/sorteinstantanea.html?jogo=sorte-instantanea" class="play-button">
+                        <div class="button-content">
+                            <div class="play-text">
+                                <svg fill="currentColor" viewBox="0 0 256 256" width="20" height="20" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M198.51 56.09C186.44 35.4 169.92 24 152 24h-48c-17.92 0-34.44 11.4-46.51 32.09C46.21 75.42 40 101 40 128s6.21 52.58 17.49 71.91C69.56 220.6 86.08 232 104 232h48c17.92 0 34.44-11.4 46.51-32.09C209.79 180.58 216 155 216 128s-6.21-52.58-17.49-71.91Z"></path>
+                                </svg>
+                                <span>Jogar</span>
+                            </div>
+                            <div class="price-tag">
+                                <span class="currency">R$</span>
+                                <span class="amount">1,00</span>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="/sorteinstantanea.html?jogo=sorte-instantanea" class="rewards-link">
+                        <i class="fas fa-gift"></i>
+                        <span>VER PRÊMIOS</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- CARTÃO 3 - TETRA DA SORTE -->
+        <div class="scratch-card">
+            <div class="scratch-banner">
+                <img src="/images/raspadinhasuprema.png" alt="Raspa Suprema">
+            </div>
+            <div class="scratch-info">
+                <div class="info-header">
+                    <h1 class="scratch-title">Raspa Suprema</h1>
+                    <h2 class="scratch-prizes">PRÊMIOS DE ATÉ R$ 5.000,00</h2>
+                </div>
+                <div class="scratch-actions">
+                    <a href="/raspasuprema.html?jogo=raspa-suprema" class="play-button">
+                        <div class="button-content">
+                            <div class="play-text">
+                                <svg fill="currentColor" viewBox="0 0 256 256" width="20" height="20" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M198.51 56.09C186.44 35.4 169.92 24 152 24h-48c-17.92 0-34.44 11.4-46.51 32.09C46.21 75.42 40 101 40 128s6.21 52.58 17.49 71.91C69.56 220.6 86.08 232 104 232h48c17.92 0 34.44-11.4 46.51-32.09C209.79 180.58 216 155 216 128s-6.21-52.58-17.49-71.91Z"></path>
+                                </svg>
+                                <span>Jogar</span>
+                            </div>
+                            <div class="price-tag">
+                                <span class="currency">R$</span>
+                                <span class="amount">5,00</span>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="/raspasuprema.html?jogo=raspa-suprema" class="rewards-link">
+                        <i class="fas fa-gift"></i>
+                        <span>VER PRÊMIOS</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- CARTÃO 4 - MEGA SORTE -->
+        <div class="scratch-card">
+            <div class="scratch-banner">
+                <img src="/images/rasparelampago.png" alt="Raspa Relâmpago">
+            </div>
+            <div class="scratch-info">
+                <div class="info-header">
+                    <h1 class="scratch-title">Raspa Relâmpago</h1>
+                    <h2 class="scratch-prizes">PRÊMIOS DE ATÉ R$ 15.000,00</h2>
+                </div>
+                <div class="scratch-actions">
+                    <a href="/rasparelampago.html?jogo=raspa-relampago" class="play-button">
+                        <div class="button-content">
+                            <div class="play-text">
+                                <svg fill="currentColor" viewBox="0 0 256 256" width="20" height="20" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M198.51 56.09C186.44 35.4 169.92 24 152 24h-48c-17.92 0-34.44 11.4-46.51 32.09C46.21 75.42 40 101 40 128s6.21 52.58 17.49 71.91C69.56 220.6 86.08 232 104 232h48c17.92 0 34.44-11.4 46.51-32.09C209.79 180.58 216 155 216 128s-6.21-52.58-17.49-71.91Z"></path>
+                                </svg>
+                                <span>Jogar</span>
+                            </div>
+                            <div class="price-tag">
+                                <span class="currency">R$</span>
+                                <span class="amount">10,00</span>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="/rasparelampago.html?jogo=raspa-relampago" class="rewards-link">
+                        <i class="fas fa-gift"></i>
+                        <span>VER PRÊMIOS</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- CARTÃO 5 - FORTUNA MILIONÁRIA -->
+        <div class="scratch-card">
+            <div class="scratch-banner">
+                <img src="/images/raspadinhamagica.png" alt="Raspadinha Mágica">
+            </div>
+            <div class="scratch-info">
+                <div class="info-header">
+                    <h1 class="scratch-title">Raspadinha Mágica</h1>
+                    <h2 class="scratch-prizes">PRÊMIOS DE ATÉ R$ 50.000,00</h2>
+                </div>
+                <div class="scratch-actions">
+                    <a href="/raspadinhamagica.html?jogo=raspadinha-magica" class="play-button">
+                        <div class="button-content">
+                            <div class="play-text">
+                                <svg fill="currentColor" viewBox="0 0 256 256" width="20" height="20" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M198.51 56.09C186.44 35.4 169.92 24 152 24h-48c-17.92 0-34.44 11.4-46.51 32.09C46.21 75.42 40 101 40 128s6.21 52.58 17.49 71.91C69.56 220.6 86.08 232 104 232h48c17.92 0 34.44-11.4 46.51-32.09C209.79 180.58 216 155 216 128s-6.21-52.58-17.49-71.91Z"></path>
+                                </svg>
+                                <span>Jogar</span>
+                            </div>
+                            <div class="price-tag">
+                                <span class="currency">R$</span>
+                                <span class="amount">50,00</span>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="/raspadinhamagica.html?jogo=raspadinha-magica" class="rewards-link">
+                        <i class="fas fa-gift"></i>
+                        <span>VER PRÊMIOS</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+    
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <div class="footer-logo">
+                    <img src="/images/logo.png" alt="Raspagreen Logo" class="logo-img">                    
+                </div>
+                <p class="footer-about">A maior plataforma de raspadinhas online do Brasil</p>
+                <div class="social-links">
+                    <a href="#top" class="social-link" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#top" class="social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#top" class="social-link" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Links</h3>
+                <ul class="footer-links">
+                    <li><a href="/">Início</a></li>
+                    <li><a href="/sorteinstantanea.html">Sorte Instantânea</a></li>
+                    <li><a href="/raspasuprema.html">Raspa Suprema</a></li>
+                    <li><a href="/centavodasorte.html">Centavo da Sorte</a></li>
+                    <li><a href="#">Termos</a></li>
+                    <li><a href="#">Privacidade</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Suporte</h3>
+                <ul class="footer-links">
+                    <li><a href="#top">Ajuda</a></li>
+                    <li><a href="#top">FAQ</a></li>
+                    <li><a href="#top">Contato</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Contato</h3>
+                <div class="contact-info">
+                    <p><a href="#top"><i class="fas fa-envelope"></i> contato@raspagreen.com.br</a></p>
+                    <p><a href="#top"><i class="fas fa-phone"></i> (11) 4002-8874</a></p>
+                </div>
+                <div class="payment-methods">                    
+                    <i class="fab fa-pix" title="Pix"></i>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <div class="container">
+                <p>&copy; 2023 Raspagreen - CNPJ: 48.780.455/0001-01</p>
+                <p class="disclaimer">Proibido para menores de 18 anos. Jogos de entretenimento.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay">
+        <div class="mobile-menu" id="mobileMenu">
+            <nav>
+                <ul>
+                    <li><a href="/">Início</a></li>
+                    <li><a href="/sorteinstantanea.html">Sorte Instantânea</a></li>
+                    <li><a href="/raspasuprema.html">Raspa Suprema</a></li>
+                    <li><a href="raspadelampago.html">Raspa Relâmpago</a></li>
+                    <li><a href="/raspadinhamagica.html">Raspadinha Mágica</a></li>
+                    <li><a href="/centavodasorte.html">Centavo da Sorte</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+        // Função para animar a rolagem dos ganhadores
+        function animateWinners() {
+            const wrapper = document.querySelector('.winners-swiper .swiper-wrapper');
+            if (!wrapper) return;
+
+            // Clonar os slides para criar um efeito de loop contínuo
+            const slides = wrapper.querySelectorAll('.swiper-slide');
+            if (slides.length === 0) return;
+            
+            // Adicionar clones apenas se não existirem ainda
+            if (wrapper.children.length === slides.length) {
+                // Duplicar os slides para um loop suave
+                slides.forEach(slide => {
+                    const clone = slide.cloneNode(true);
+                    wrapper.appendChild(clone);
+                });
+            }
+
+            // Configurar o wrapper para largura total
+            const slideWidth = 280 + 30; // Largura do slide + margem
+            wrapper.style.width = `${slideWidth * slides.length * 2}px`;
+
+            let position = 0;
+            const speed = 1; // pixels por frame
+            let animationId;
+            let isPaused = false;
+            let then = Date.now();
+            const fps = 60;
+            const fpsInterval = 1000 / fps;
+
+            function scroll() {
+                if (isPaused) {
+                    animationId = requestAnimationFrame(scroll);
+                    return;
+                }
+
+                const now = Date.now();
+                const elapsed = now - then;
+
+                if (elapsed > fpsInterval) {
+                    then = now - (elapsed % fpsInterval);
+                    
+                    position -= speed;
+                    const firstChild = wrapper.firstElementChild;
+                    const firstChildWidth = firstChild.offsetWidth + 30; // 30px de margem
+
+                    // Se o primeiro elemento saiu completamente da tela, mova-o para o final
+                    if (position <= -firstChildWidth) {
+                        position += firstChildWidth;
+                        wrapper.appendChild(firstChild);
+                        wrapper.style.transition = 'none';
+                        wrapper.style.transform = `translateX(${position}px)`;
+                    } else {
+                        wrapper.style.transition = 'transform 0.1s linear';
+                        wrapper.style.transform = `translateX(${position}px)`;
+                    }
+                }
+                
+                animationId = requestAnimationFrame(scroll);
+            }
+
+            // Iniciar a animação
+            if (slides.length > 0) {
+                // Forçar layout e pintura antes de iniciar a animação
+                wrapper.style.willChange = 'transform';
+                wrapper.style.backfaceVisibility = 'hidden';
+                wrapper.style.perspective = '1000px';
+                wrapper.style.transform = 'translateX(0)';
+                
+                // Iniciar com um pequeno atraso para garantir que o DOM esteja pronto
+                setTimeout(() => {
+                    // Iniciar a animação
+                    wrapper.style.transition = 'none';
+                    wrapper.style.transform = 'translateX(0)';
+                    // Forçar um reflow
+                    void wrapper.offsetWidth;
+                    // Iniciar a animação
+                    animationId = requestAnimationFrame(scroll);
+                }, 100);
+            }
+
+            // Pausar animação quando o mouse estiver sobre a seção
+            const winnersSection = document.querySelector('.winners-section');
+            if (winnersSection) {
+                let isPaused = false;
+                let isScrolling = false;
+                let startX, scrollLeft;
+                
+                // Pausar ao passar o mouse
+                winnersSection.addEventListener('mouseenter', () => {
+                    isPaused = true;
+                    cancelAnimationFrame(animationId);
+                });
+                
+                // Retomar quando o mouse sair
+                winnersSection.addEventListener('mouseleave', () => {
+                    isPaused = false;
+                    if (!isPaused) {
+                        then = window.performance.now(); // Resetar o tempo para evitar saltos
+                        animationId = requestAnimationFrame(scroll);
+                    }
+                });
+                
+                // Suporte para toque em dispositivos móveis
+                wrapper.addEventListener('touchstart', (e) => {
+                    isPaused = true;
+                    cancelAnimationFrame(animationId);
+                    
+                    const touch = e.touches[0];
+                    startX = touch.clientX;
+                    scrollLeft = position;
+                    isScrolling = true;
+                }, { passive: true });
+                
+                wrapper.addEventListener('touchmove', (e) => {
+                    if (!isScrolling) return;
+                    e.preventDefault();
+                    
+                    const touch = e.touches[0];
+                    const x = touch.clientX;
+                    const walk = (x - startX) * 2; // Ajuste de sensibilidade
+                    position = scrollLeft - walk;
+                    wrapper.style.transform = `translate3d(${position}px, 0, 0)`;
+                }, { passive: false });
+                
+                wrapper.addEventListener('touchend', () => {
+                    isScrolling = false;
+                    isPaused = false;
+                    then = window.performance.now();
+                    animationId = requestAnimationFrame(scroll);
+                }, { passive: true });
+            }
+
+            // Pausar animação quando a janela não estiver visível
+            document.addEventListener('visibilitychange', () => {
+                if (document.hidden) {
+                    cancelAnimationFrame(animationId);
+                } else {
+                    then = window.performance.now();
+                    animationId = requestAnimationFrame(scroll);
+                }
+            });
+
+            // Limpar animação ao sair da página
+            window.addEventListener('beforeunload', () => {
+                cancelAnimationFrame(animationId);
+            });
+        }
+
+        // Inicialização quando o DOM estiver carregado
+        document.addEventListener('DOMContentLoaded', function() {
+            // Iniciar a animação dos ganhadores
+            setTimeout(animateWinners, 1000); // Pequeno atraso para garantir que o DOM esteja pronto
+            
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const mobileMenu = document.getElementById('mainNav');
+            const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+            
+            function toggleMobileMenu() {
+                mobileMenuBtn.classList.toggle('active');
+                mobileMenu.classList.toggle('active');
+                mobileMenuOverlay.classList.toggle('active');
+                document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+            }
+            
+            // Toggle menu on button click
+            mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+            
+            // Close menu when clicking on overlay
+            mobileMenuOverlay.addEventListener('click', toggleMobileMenu);
+            
+            // Close menu when clicking on a nav link
+            document.querySelectorAll('#mainNav a').forEach(link => {
+                link.addEventListener('click', () => {
+                    if (mobileMenu.classList.contains('active')) {
+                        toggleMobileMenu();
+                    }
+                });
+            });
+            
+            // Close menu when window is resized to desktop size
+            window.addEventListener('resize', function() {
+                if (window.innerWidth > 768 && mobileMenu.classList.contains('active')) {
+                    toggleMobileMenu();
+                }
+            });
+        });
+    </script>
+    <script>
+        // Script para trocar os banners
+        document.addEventListener('DOMContentLoaded', function() {
+            const banners = document.querySelectorAll('.banner');
+            let currentBanner = 0;
+            
+            // Função para trocar o banner
+            function changeBanner() {
+                // Remove a classe 'active' de todos os banners
+                banners.forEach(banner => banner.classList.remove('active'));
+                
+                // Adiciona a classe 'active' ao banner atual
+                banners[currentBanner].classList.add('active');
+                
+                // Atualiza o índice para o próximo banner
+                currentBanner = (currentBanner + 1) % banners.length;
+            }
+            
+            // Inicia a troca de banners a cada 5 segundos
+            setInterval(changeBanner, 5000);
+            
+            // Garante que o primeiro banner esteja visível ao carregar a página
+            changeBanner();
+        });
+        
+        // Script para a raspadinha
+        document.addEventListener('DOMContentLoaded', function() {
+            const canvas = document.getElementById('scratchCanvas');
+            const ctx = canvas.getContext('2d');
+            const prizeText = document.getElementById('prizeText');
+            const message = document.getElementById('message');
+            const newCardBtn = document.getElementById('newCardBtn');
+            
+            // Inicializa a raspadinha
+            initScratchCard();
+            
+            // Configura o botão de nova raspadinha
+            newCardBtn.addEventListener('click', initScratchCard);
+            
+            function initScratchCard() {
+                // Limpa a mensagem
+                message.textContent = '';
+                
+                // Gera um prêmio aleatório
+                const prizes = ['R$ 0,00', 'R$ 2,00', 'R$ 5,00', 'R$ 10,00', 'R$ 20,00', 'R$ 50,00'];
+                const randomPrize = prizes[Math.floor(Math.random() * prizes.length)];
+                prizeText.textContent = randomPrize;
+                
+                // Preenche o canvas com a cor de cobertura
+                ctx.fillStyle = '#7f8c8d';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                
+                // Adiciona texto instrucional
+                ctx.font = '16px Arial';
+                ctx.fillStyle = '#fff';
+                ctx.textAlign = 'center';
+                ctx.fillText('Raspe aqui!', canvas.width / 2, canvas.height / 2);
+                
+                // Configura eventos de raspadinha
+                let isDrawing = false;
+                
+                canvas.addEventListener('mousedown', startDrawing);
+                canvas.addEventListener('touchstart', startDrawing);
+                
+                canvas.addEventListener('mousemove', draw);
+                canvas.addEventListener('touchmove', draw);
+                
+                canvas.addEventListener('mouseup', stopDrawing);
+                canvas.addEventListener('touchend', stopDrawing);
+                
+                function startDrawing(e) {
+                    isDrawing = true;
+                    draw(e);
+                }
+                
+                function draw(e) {
+                    if (!isDrawing) return;
+                    
+                    // Obtém as coordenadas do mouse/toque
+                    const rect = canvas.getBoundingClientRect();
+                    let x, y;
+                    
+                    if (e.type.includes('mouse')) {
+                        x = e.clientX - rect.left;
+                        y = e.clientY - rect.top;
+                    } else {
+                        x = e.touches[0].clientX - rect.left;
+                        y = e.touches[0].clientY - rect.top;
+                    }
+                    
+                    // Desenha um círculo transparente na posição
+                    ctx.globalCompositeOperation = 'destination-out';
+                    ctx.beginPath();
+                    ctx.arc(x, y, 20, 0, Math.PI * 2);
+                    ctx.fill();
+                    
+                    // Verifica se a raspadinha foi completamente revelada
+                    checkRevealed();
+                }
+                
+                function stopDrawing() {
+                    isDrawing = false;
+                }
+                
+                function checkRevealed() {
+                    // Verifica a porcentagem de área revelada
+                    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                    const pixels = imageData.data;
+                    let transparentPixels = 0;
+                    
+                    for (let i = 3; i < pixels.length; i += 4) {
+                        if (pixels[i] === 0) {
+                            transparentPixels++;
+                        }
+                    }
+                    
+                    const totalPixels = canvas.width * canvas.height;
+                    const revealedPercent = (transparentPixels / totalPixels) * 100;
+                    
+                    // Se mais de 60% foi revelado, mostra o prêmio
+                    if (revealedPercent > 60) {
+                        if (randomPrize === 'R$ 0,00') {
+                            message.textContent = 'Que pena! Tente novamente.';
+                        } else {
+                            message.textContent = `Parabéns! Você ganhou ${randomPrize}!`;
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

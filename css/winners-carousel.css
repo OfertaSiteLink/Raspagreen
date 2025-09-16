@@ -1,0 +1,231 @@
+/* Estilos para o carrossel de ganhadores */
+.winners-section {
+    background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%);
+    padding: 1.5rem 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    overflow: hidden;
+    position: relative;
+    z-index: 10;
+}
+
+.winners-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.winner-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 30px;
+}
+
+.winner-icon svg {
+    width: 20px;
+    height: 20px;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { opacity: 0.6; }
+    50% { opacity: 1; }
+    100% { opacity: 0.6; }
+}
+
+.winners-swiper {
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+    height: 80px;
+    -webkit-transform: translateZ(0); /* Aceleração por hardware */
+    transform: translateZ(0);
+}
+
+.swiper-wrapper {
+    display: flex;
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    will-change: transform;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+}
+
+.swiper-slide {
+    display: flex;
+    align-items: center;
+    padding: 0 15px;
+    height: 100%;
+    flex-shrink: 0;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    will-change: transform;
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+}
+
+.winner-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 8px;
+    padding: 8px 12px;
+    min-width: 280px;
+    height: 60px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.3s ease;
+}
+
+.winner-card:hover {
+    background: rgba(0, 232, 128, 0.05);
+    border-color: rgba(0, 232, 128, 0.1);
+    transform: translateY(-2px);
+}
+
+.prize-image-container {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.prize-image {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.winner-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex: 1;
+    min-width: 0;
+}
+
+.winner-name {
+    font-weight: 600;
+    color: #fff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 0.9rem;
+}
+
+.winner-prize {
+    color: #00e880;
+    font-weight: 700;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.winner-amount {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.6);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Estilos para o estado de carregamento */
+.winners-carousel-loading .winners-section {
+    min-height: 80px;
+    position: relative;
+}
+
+.winners-carousel-loading .winners-container {
+    opacity: 0.7;
+}
+
+.winners-carousel-loading .winners-swiper::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, 
+        transparent 0%, 
+        rgba(255, 255, 255, 0.1) 50%, 
+        transparent 100%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite linear;
+    z-index: 10;
+}
+
+@keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .winners-container {
+        padding: 0 0.5rem;
+    }
+    
+    .winner-card {
+        min-width: 260px;
+    }
+    
+    .winners-swiper {
+        height: 70px;
+    }
+}
+
+@media (max-width: 480px) {
+    .winners-container {
+        gap: 0.5rem;
+    }
+    
+    .winner-icon {
+        min-width: 24px;
+    }
+    
+    .winner-icon svg {
+        width: 16px;
+        height: 16px;
+    }
+    
+    .winner-card {
+        min-width: 240px;
+        padding: 6px 10px;
+    }
+    
+    .winner-name, .winner-prize {
+        font-size: 0.8rem;
+    }
+    
+    .winner-amount {
+        font-size: 0.7rem;
+    }
+}

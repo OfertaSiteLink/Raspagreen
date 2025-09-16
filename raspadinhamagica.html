@@ -1,0 +1,1612 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogar - Raspagreen</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/raspadinhamagica.css">
+    <link rel="stylesheet" href="/css/winners-carousel.css">
+    <style>
+        /* Game specific styles */
+        .game-area {
+            position: relative;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .game-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            backdrop-filter: blur(3px);
+            pointer-events: auto; /* Ensure it blocks interaction */
+        }
+        
+        .purchase-modal {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            background: transparent;
+            border-radius: 16px;
+            padding: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 1001;
+        }
+        
+        .info-icon {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            background: rgba(0, 232, 128, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: help;
+        }
+        
+        .main-icon {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 20px;
+            color: #00E880;
+            filter: drop-shadow(0 0 15px rgba(0, 232, 128, 0.3));
+        }
+        
+        .game-overlay h3 {
+            color: #fff;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin: 20px 0 10px;
+            letter-spacing: -0.5px;
+        }
+        
+        .game-overlay p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.1rem;
+            margin: 0 0 30px;
+            line-height: 1.6;
+        }
+        
+        .game-overlay button {
+            background: linear-gradient(135deg, #00E880 0%, #00C96E 100%);
+            color: #0f172a;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0;
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            max-width: 140px;
+            margin: 0 auto;
+            box-shadow: 0 2px 8px rgba(0, 232, 128, 0.2);
+            letter-spacing: 0.2px;
+        }
+        
+        .game-overlay button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .game-overlay button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 232, 128, 0.4);
+        }
+        
+        .game-overlay button:hover::before {
+            left: 100%;
+        }
+        
+        .game-overlay button svg {
+            width: 16px;
+            height: 16px;
+        }
+        
+        .secure-payment {
+            font-size: 0.85rem !important;
+            color: rgba(255, 255, 255, 0.6) !important;
+            margin: 20px 0 0 !important;
+        }
+        
+        .game-overlay svg {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 24px;
+            color: #00E880;
+            filter: drop-shadow(0 0 10px rgba(0, 232, 128, 0.3));
+            animation: pulse 2s infinite ease-in-out;
+        }
+        
+        .game-overlay p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin: 20px 0 32px;
+            max-width: 320px;
+            line-height: 1.5;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        
+        .game-overlay button {
+            background: linear-gradient(135deg, #00E880 0%, #00C96E 100%);
+            color: #0f172a;
+            border: none;
+            padding: 16px 32px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 6px 20px rgba(0, 232, 128, 0.3);
+            letter-spacing: 0.5px;
+        }
+        
+        .game-overlay button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .game-overlay button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 232, 128, 0.4);
+        }
+        
+        .game-overlay button:hover::before {
+            left: 100%;
+        }
+        
+        .game-overlay button svg {
+            width: 20px;
+            height: 20px;
+            margin: 0;
+            animation: none;
+            filter: none;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes fadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', 'Segoe UI', system-ui, -apple-system, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            color: #000000;
+            line-height: 1.6;
+        }
+
+        .game-container {
+            width: 100%;
+            margin: 0;
+            padding: 10px 0;
+            overflow-x: hidden;
+        }
+        
+        .game-layout {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+            position: relative;
+            box-sizing: border-box;
+        }
+        
+        .game-layout-inner {
+            display: flex;
+            gap: 30px;
+            width: 100%;
+        }
+        
+        .game-area {
+            flex: 0 0 auto;
+            width: 500px;
+            padding: 25px;
+            margin: 0;
+            background: linear-gradient(135deg, #1a1a1a 0%, #252525 100%);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .prizes-sidebar {
+            flex: 1;
+            min-width: 300px;
+            background: #1a1a1a;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .prizes-container h3 {
+            color: #00E880;
+            margin-top: 0;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 1.3em;
+        }
+        
+        .prizes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 15px;
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+        
+        .prize-card {
+            background: linear-gradient(145deg, #2a2a2a, #1f1f1f);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3), 
+                        -2px -2px 10px rgba(255, 255, 255, 0.02);
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .prize-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 8px 8px 20px rgba(0, 0, 0, 0.4), 
+                       -4px -4px 15px rgba(255, 255, 255, 0.03);
+            border-color: rgba(0, 232, 128, 0.2);
+        }
+        
+        .prize-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #00E880, #00a8ff);
+            z-index: 2;
+            opacity: 0.8;
+            transition: all 0.3s ease;
+        }
+        
+        .prize-card:hover::before {
+            height: 4px;
+            opacity: 1;
+        }
+        
+        .prize-image {
+            width: 100%;
+            height: 160px;
+            background: linear-gradient(145deg, #2f2f2f, #242424);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .prize-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 30%, rgba(0, 232, 128, 0.1), transparent 70%);
+            pointer-events: none;
+        }
+        
+        .prize-image img {
+            width: 120px;
+            height: 120px;
+            object-fit: contain;
+        }
+        
+        .prize-details {
+            padding: 15px 10px;
+            text-align: center;
+            background: linear-gradient(to bottom, #252525, #1a1a1a);
+            position: relative;
+        }
+        
+        .prize-details::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(0, 232, 128, 0.5), transparent);
+        }
+        
+        .prize-amount {
+            color: #00E880;
+            font-weight: 700;
+            font-size: 1.2em;
+            margin: 5px 0 8px;
+            text-shadow: 0 0 10px rgba(0, 232, 128, 0.3);
+            letter-spacing: 0.5px;
+            position: relative;
+            display: inline-block;
+            padding: 0 10px;
+        }
+        
+        .prize-amount::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #00E880, transparent);
+            opacity: 0.5;
+        }
+        
+        .prize-name {
+            color: #e0e0e0;
+            font-size: 0.95em;
+            margin: 0;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+            text-transform: uppercase;
+            font-size: 0.8em;
+            opacity: 0.9;
+        }
+        
+        .banner-side {
+            width: 100%;
+            max-width: 700px;
+            margin: 20px auto;
+            z-index: 100;
+            background: #1a1a1a;
+            padding: 15px;
+            border-radius: 10px;
+            box-sizing: border-box;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            align-self: start;
+            position: sticky;
+            top: 20px;
+        }
+        
+        .info-box {
+            background: #252525;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .info-box h3 {
+            color: #00E880;
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+        
+        .info-box p {
+            color: #fff;
+            margin: 10px 0;
+            line-height: 1.5;
+        }
+        
+        .game-banner {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+        
+        .game-banner:hover {
+            transform: translateY(-3px);
+        }
+        
+        @media (max-width: 900px) {
+            .game-layout {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .banner-side {
+                margin-top: 40px;
+                max-width: 100%;
+            }
+        }
+
+        /* Main content layout */
+        main {
+            padding: 20px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #ffffff;
+        }
+
+        .game-area h2 {
+            color: #00E880;
+            margin: 0 0 2rem 0;
+            text-align: center;
+            font-family: 'Bebas Neue', cursive;
+            font-weight: 400;
+            font-size: 2.8rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            position: relative;
+            padding-bottom: 1.2rem;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+            line-height: 1.1;
+            opacity: 0.9;
+        }
+
+        .game-area h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, #70e000, #38b000);
+            border-radius: 2px;
+            opacity: 0.8;
+        }
+
+        .game-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin: 1.5rem auto;
+            width: 100%;
+            max-width: 300px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .grid-row {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .grid-cell {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(145deg, #00E880, #00E880);
+            border: 1px solid rgba(0, 232, 128, 0.5);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #ffffff;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(70, 224, 0, 0.3);
+        }
+
+        .grid-cell:hover {
+            background: linear-gradient(145deg, #00E880, #00E880);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 232, 128, 0.4);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .grid-cell.revealed {
+            background: linear-gradient(145deg, #0a1a12, #05140d);
+            border: 1px solid rgba(0, 232, 128, 0.3);
+            color: #00E880;
+            transform: none;
+            box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.2);
+            text-shadow: 0 0 8px rgba(0, 232, 128, 0.5);
+            font-weight: 600;
+        }
+
+        .game-controls {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+            width: 100%;
+            max-width: 300px;
+            background: rgba(30, 30, 30, 0.6);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .login-overlay {
+            position: absolute;
+            inset: 0;
+            z-index: 40;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            gap: 0.5rem;
+            padding: 1rem;
+        }
+
+        .user-icon {
+            width: 4rem;
+            height: 4rem;
+            color: #00E880;
+        }
+
+        .login-text {
+            font-size: 1.5rem;
+            text-align: center;
+            font-weight: 700;
+            color: #ffffff;
+            margin: 0.5rem 0;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .login-subtext {
+            font-size: 0.875rem;
+            text-align: center;
+            color: #e2e8f0;
+            max-width: 300px;
+            margin: 0 auto 1rem;
+            line-height: 1.4;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        .login-buttons {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .buy-now-btn {
+            background-color: #00E880;
+            color: white;
+            font-weight: 600;
+            padding: 0.5rem 1.5rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .buy-now-btn:hover {
+            background-color: #00E880;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        /* Media Queries para Dispositivos Móveis */
+        @media (max-width: 768px) {
+            .game-container {
+                padding: 5px 0;
+            }
+            
+            .game-layout {
+                padding: 0 5px;
+                flex-direction: column;
+            }
+            
+            .game-layout-inner {
+                flex-direction: column;
+                align-items: center;
+                margin-bottom: 15px;
+            }
+            
+            .game-area {
+                width: 100%;
+                max-width: 100%;
+                padding: 10px;
+                margin: 0 auto 15px;
+                box-sizing: border-box;
+            }
+            
+            .prizes-sidebar {
+                width: 100%;
+                padding: 15px 10px;
+                margin: 0 auto;
+                box-sizing: border-box;
+            }
+            
+            .prizes-grid {
+                grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+                gap: 8px;
+            }
+            
+            .prize-card {
+                padding: 5px;
+                margin: 0;
+            }
+            
+            .prize-image img {
+                width: 50px;
+                height: 50px;
+                margin: 0 auto;
+            }
+            
+            .prize-amount {
+                font-size: 0.75em;
+                margin: 3px 0;
+            }
+            
+            .prize-name {
+                font-size: 0.65em;
+                margin: 0;
+            }
+            
+            .banner-side {
+                width: 100%;
+                max-width: 100%;
+                padding: 10px;
+                margin: 10px auto;
+                position: relative;
+                top: 0;
+            }
+            
+            .game-grid {
+                max-width: 100%;
+                margin: 10px auto;
+            }
+            
+            .grid-row {
+                justify-content: center;
+                gap: 8px;
+            }
+            
+            .grid-cell {
+                width: 80px;
+                height: 80px;
+                font-size: 1.1em;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .prizes-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 6px;
+            }
+            
+            .prize-card {
+                padding: 4px;
+            }
+            
+            .prize-image img {
+                width: 45px;
+                height: 45px;
+            }
+            
+            .prize-amount {
+                font-size: 0.7em;
+            }
+            
+            .prize-name {
+                font-size: 0.6em;
+            }
+            
+            .grid-cell {
+                width: 70px;
+                height: 70px;
+                font-size: 1em;
+            }
+        }
+        
+        @media (max-width: 360px) {
+            .prizes-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 5px;
+            }
+            
+            .prize-card {
+                padding: 3px;
+            }
+            
+            .prize-image img {
+                width: 40px;
+                height: 40px;
+            }
+            
+            .prize-amount {
+                font-size: 0.65em;
+                margin: 2px 0;
+            }
+            
+            .prize-name {
+                font-size: 0.55em;
+            }
+            
+            .grid-cell {
+                width: 65px;
+                height: 65px;
+                font-size: 0.9em;
+            }
+        }
+    </style>
+
+    
+    <link rel="alternate icon" type="image/png" href="favicon.png">
+    
+
+    <link rel="icon" type="image/png" href="/images/trevo.png">
+    <link rel="shortcut icon" type="image/png" href="/images/trevo.png">
+    <link rel="apple-touch-icon" href="/images/trevo.png">
+</head>
+<body>
+    <!-- Header Preto -->
+    <header>
+        <div class="header-content">
+            <div class="header-left">
+                <!-- Imagem que você irá substituir pela sua -->
+                <img src="/images/logo.png" alt="Logo Raspadinha" class="header-image">
+                <div class="logo">                                        
+                </div>
+            </div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Menu">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav id="mainNav">
+                <ul>
+                    <li><a href="/">Início</a></li>
+                    <li><a href="/sorteinstantanea.html">Sorte Instantânea</a></li>
+                    <li><a href="/raspasuprema.html">Raspa Suprema</a></li>
+                    <li><a href="/rasparelampago.html">Raspa Relâmpago</a></li>
+                    <li><a href="/raspadinhamagica.html">Raspadinha Mágica</a></li>
+                    <li><a href="/centavodasorte.html">Centavo da Sorte</a></li>
+                </ul>
+            </nav>
+        </header>
+        
+        <!-- Winners Carousel Template -->
+        <div id="winners-carousel-container">
+            <!-- The content will be loaded here -->
+        </div>
+        
+        <!-- Include the winners carousel template -->
+        <script>
+            // Load the winners carousel template and then the script
+            document.addEventListener('DOMContentLoaded', function() {
+                fetch('templates/winners-carousel.html')
+                    .then(response => response.text())
+                    .then(html => {
+                        const container = document.getElementById('winners-carousel-container');
+                        container.innerHTML = html;
+                        
+                        // Load the carousel script after the HTML is inserted
+                        const script = document.createElement('script');
+                        script.src = 'js/winners-carousel.js';
+                        script.onload = function() {
+                            // Small delay to ensure all elements are rendered
+                            setTimeout(animateWinners, 300);
+                        };
+                        document.body.appendChild(script);
+                    })
+                    .catch(error => {
+                        console.error('Error loading winners carousel:', error);
+                    });
+            });
+        </script>
+    </section>
+
+    <!-- Main Content -->
+    <main style="flex: 1; padding: 0;">
+        <!-- Game Section -->
+        <div class="game-container">
+            <div class="game-layout">
+                <div class="game-layout-inner">
+                    <div class="game-area">
+                        <h2>Raspe e Ganhe!</h2>
+                        <div class="game-overlay" id="purchaseOverlay" style="display: flex;">
+                            <div class="purchase-modal">
+                                <div style="display: flex; justify-content: center; width: 100%; margin: 15px 0;">
+                                    <svg viewBox="0 0 24 24" fill="currentColor" class="main-icon" style="width: 80px; height: 80px;">
+                                        <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1.003 1.003 0 0 0 20 4H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"></path>
+                                    </svg>
+                                </div>
+                                
+                                <p style="margin: 30px auto; text-align: center; max-width: 300px;">Adquira créditos para desbloquear prêmios incríveis!</p>
+                                
+                                <div style="display: flex; flex-direction: column; align-items: center; margin: 20px 0 10px;">
+                                    <button id="purchaseButton" style="display: inline-flex; align-items: center; gap: 8px; margin: 0 auto 5px;">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20">
+                                            <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                                            <line x1="3" y1="6" x2="21" y2="6"></line>
+                                            <path d="M16 10a4 4 0 0 1-8 0"></path>
+                                        </svg>
+                                        <span>Comprar</span>
+                                    </button>
+                                    <p class="secure-payment" style="text-align: center; color: rgba(255, 255, 255, 0.6); font-size: 0.85rem; margin: 5px 0 0; width: 100%;">Pagamento 100% seguro</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="game-grid">
+                            <div class="grid-row">
+                                <div class="grid-cell" data-cell="0"></div>
+                                <div class="grid-cell" data-cell="1"></div>
+                                <div class="grid-cell" data-cell="2"></div>
+                            </div>
+                            <div class="grid-row">
+                                <div class="grid-cell" data-cell="3"></div>
+                                <div class="grid-cell" data-cell="4"></div>
+                                <div class="grid-cell" data-cell="5"></div>
+                            </div>
+                            <div class="grid-row">
+                                <div class="grid-cell" data-cell="6"></div>
+                                <div class="grid-cell" data-cell="7"></div>
+                                <div class="grid-cell" data-cell="8"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="prizes-sidebar">
+                        <div class="prizes-container">
+                            <h3>Prêmios da Raspadinha</h3>
+                            <div class="prizes-grid">
+                                <!-- 30.000 Reais -->
+                                <div class="prize-card">
+                                    <div class="prize-image">
+                                        <img src="/images/30000reais.png" alt="30.000 Reais" style="width: 120px; height: 120px; object-fit: contain;">
+                                    </div>
+                                    <div class="prize-details">
+                                        <div class="prize-amount">R$ 30.000,00</div>
+                                        <p class="prize-name">Trinta Mil Reais</p>
+                                    </div>
+                                </div>
+
+                                <!-- Moto CG 160 Start -->
+                                <div class="prize-card">
+                                    <div class="prize-image">
+                                        <img src="/images/cg160.png" alt="Moto CG 160 Start" style="width: 120px; height: 120px; object-fit: contain;">
+                                    </div>
+                                    <div class="prize-details">
+                                        <div class="prize-amount">Moto CG 160 Start</div>
+                                        <p class="prize-name">Honda 160cc</p>
+                                    </div>
+                                </div>
+
+                                <!-- Moto Honda Biz 110i -->
+                                <div class="prize-card">
+                                    <div class="prize-image">
+                                        <img src="/images/hondabiz.png" alt="Moto Honda Biz 110i" style="width: 120px; height: 120px; object-fit: contain;">
+                                    </div>
+                                    <div class="prize-details">
+                                        <div class="prize-amount">Honda Biz 125</div>
+                                        <p class="prize-name">Moto 125cc</p>
+                                    </div>
+                                </div>
+
+                                <!-- Moto Honda Pop 110i -->
+                                <div class="prize-card">
+                                    <div class="prize-image">
+                                        <img src="/images/hondapop.png" alt="Moto Honda Pop 110i" style="width: 120px; height: 120px; object-fit: contain;">
+                                    </div>
+                                    <div class="prize-details">
+                                        <div class="prize-amount">Honda Pop 110i</div>
+                                        <p class="prize-name">Moto 110cc</p>
+                                    </div>
+                                </div>
+
+                                <!-- iPhone 16 Pro Max -->
+                                <div class="prize-card">
+                                    <div class="prize-image">
+                                        <img src="/images/iphone16.png" alt="iPhone 16 Pro Max" style="width: 120px; height: 120px; object-fit: contain;">
+                                    </div>
+                                    <div class="prize-details">
+                                        <div class="prize-amount">iPhone 16 Pro Max</div>
+                                        <p class="prize-name">Smartphone Premium</p>
+                                    </div>
+                                </div>
+
+                                <!-- 10.000 Reais -->
+                                <div class="prize-card">
+                                    <div class="prize-image">
+                                        <img src="/images/10000reais.png" alt="10.000 Reais" style="width: 120px; height: 120px; object-fit: contain;">
+                                    </div>
+                                    <div class="prize-details">
+                                        <div class="prize-amount">R$ 10.000,00</div>
+                                        <p class="prize-name">Dez Mil Reais</p>
+                                    </div>
+                                </div>
+
+                                <!-- iPhone 15 Pro Max -->
+                                <div class="prize-card">
+                                    <div class="prize-image">
+                                        <img src="/images/iphone15.png" alt="iPhone 15 Pro Max" style="width: 120px; height: 120px; object-fit: contain;">
+                                    </div>
+                                    <div class="prize-details">
+                                        <div class="prize-amount">iPhone 15 Pro Max</div>
+                                        <p class="prize-name">Smartphone Premium</p>
+                                    </div>
+                                </div>
+
+                                <!-- Geladeira Frost Free -->
+                                <div class="prize-card">
+                                    <div class="prize-image">
+                                        <img src="/images/geladeira.png" alt="Geladeira Frost Free" style="width: 120px; height: 120px; object-fit: contain;">
+                                    </div>
+                                    <div class="prize-details">
+                                        <div class="prize-amount">Geladeira Frost Free</div>
+                                        <p class="prize-name">Duplex 375L</p>
+                                    </div>
+                                </div>
+
+                                <!-- Apple Watch Ultra 2 -->
+                                <div class="prize-card">
+                                    <div class="prize-image">
+                                        <img src="/images/valoresaltos.png" alt="Apple Watch Ultra 2" style="width: 120px; height: 120px; object-fit: contain;">
+                                    </div>
+                                    <div class="prize-details">
+                                        <div class="prize-amount">Apple Watch Ultra 2</div>
+                                        <p class="prize-name">Relógio Inteligente</p>
+                                    </div>
+                                </div>
+
+                                <!-- Churrasqueira a gás GS Performance -->
+                                <div class="prize-card">
+                                    <div class="prize-image">
+                                        <img src="/images/churrasqueiraagas.png" alt="Churrasqueira a gás GS Performance" style="width: 120px; height: 120px; object-fit: contain;">
+                                    </div>
+                                    <div class="prize-details">
+                                        <div class="prize-amount">Churrasqueira GS Performance</div>
+                                        <p class="prize-name">A gás premium</p>
+                                    </div>
+                                </div>
+
+                                <!-- 5.000 Reais -->
+                                <div class="prize-card">
+                                    <div class="prize-image">
+                                        <img src="/images/5000reais.png" alt="5.000 Reais" style="width: 120px; height: 120px; object-fit: contain;">
+                                    </div>
+                                    <div class="prize-details">
+                                        <div class="prize-amount">R$ 5.000,00</div>
+                                        <p class="prize-name">Cinco Mil Reais</p>
+                                    </div>
+                                </div>
+
+                                <!-- PlayStation 5 -->
+                                <div class="prize-card">
+                                    <div class="prize-image">
+                                        <img src="/images/playstation5.png" alt="PlayStation 5" style="width: 120px; height: 120px; object-fit: contain;">
+                                    </div>
+                                    <div class="prize-details">
+                                        <div class="prize-amount">PlayStation 5</div>
+                                        <p class="prize-name">Console de última geração</p>
+                                    </div>
+                                </div>
+
+                                <!-- iPhone 12 -->
+                                <div class="prize-card">
+                                    <div class="prize-image">
+                                        <img src="/images/iphone13.png" alt="iPhone 12" style="width: 120px; height: 120px; object-fit: contain;">
+                                    </div>
+                                    <div class="prize-details">
+                                        <div class="prize-amount">iPhone 12</div>
+                                        <p class="prize-name">Smartphone</p>
+                                    </div>
+                                </div>
+
+                                <!-- Apple AirPods 3ª geração -->
+                                <div class="prize-card">
+                                    <div class="prize-image">
+                                        <img src="/images/airpods.png" alt="Apple AirPods 3ª geração" style="width: 120px; height: 120px; object-fit: contain;">
+                                    </div>
+                                    <div class="prize-details">
+                                        <div class="prize-amount">AirPods 3ª geração</div>
+                                        <p class="prize-name">Fones sem fio</p>
+                                    </div>
+                                </div>
+
+                                <!-- Air Force 1 x AMBUSH -->
+                                <div class="prize-card">
+                                    <div class="prize-image">
+                                        <img src="/images/airforceambush.png" alt="Air Force 1 x AMBUSH" style="width: 120px; height: 120px; object-fit: contain;">
+                                    </div>
+                                    <div class="prize-details">
+                                        <div class="prize-amount">Air Force 1 x AMBUSH</div>
+                                        <p class="prize-name">Tênis Nike</p>
+                                    </div>
+                                </div>
+
+                                <!-- Air Force 1 Low Retro -->
+                                <div class="prize-card">
+                                    <div class="prize-image">
+                                        <img src="/images/airforceelow.png" alt="Air Force 1 Low Retro" style="width: 120px; height: 120px; object-fit: contain;">
+                                    </div>
+                                    <div class="prize-details">
+                                        <div class="prize-amount">Air Force 1 Low Retro</div>
+                                        <p class="prize-name">Tênis Nike</p>
+                                    </div>
+                                </div>
+
+                                <!-- Air Jordan 1 Low Purple -->
+                                <div class="prize-card">
+                                    <div class="prize-image">
+                                        <img src="/images/airjordan.png" alt="Air Jordan 1 Low Purple" style="width: 120px; height: 120px; object-fit: contain;">
+                                    </div>
+                                    <div class="prize-details">
+                                        <div class="prize-amount">Air Jordan 1 Low Purple</div>
+                                        <p class="prize-name">Tênis Jordan</p>
+                                    </div>
+                                </div>
+
+                                <!-- 1.000 Reais -->
+                                <div class="prize-card">
+                                    <div class="prize-image">
+                                        <img src="/images/1000.png" alt="1.000 Reais" style="width: 120px; height: 120px; object-fit: contain;">
+                                    </div>
+                                    <div class="prize-details">
+                                        <div class="prize-amount">R$ 1.000,00</div>
+                                        <p class="prize-name">Mil Reais</p>
+                                    </div>
+                                </div>
+
+                                <!-- 700 Reais -->
+                                <div class="prize-card">
+                                    <div class="prize-image">
+                                        <img src="/images/700.png" alt="700 Reais" style="width: 120px; height: 120px; object-fit: contain;">
+                                    </div>
+                                    <div class="prize-details">
+                                        <div class="prize-amount">R$ 700,00</div>
+                                        <p class="prize-name">Setecentos Reais</p>
+                                    </div>
+                                </div>
+
+                                <!-- 500 Reais -->
+                                <div class="prize-card">
+                                    <div class="prize-image">
+                                        <img src="/images/500.png" alt="500 Reais" style="width: 120px; height: 120px; object-fit: contain;">
+                                    </div>
+                                    <div class="prize-details">
+                                        <div class="prize-amount">R$ 500,00</div>
+                                        <p class="prize-name">Quinhentos Reais</p>
+                                    </div>
+                                </div>
+
+                                <!-- 100 Reais -->
+                                <div class="prize-card">
+                                    <div class="prize-image">
+                                        <img src="/images/100.png" alt="100 Reais" style="width: 120px; height: 120px; object-fit: contain;">
+                                    </div>
+                                    <div class="prize-details">
+                                        <div class="prize-amount">R$ 100,00</div>
+                                        <p class="prize-name">Cem Reais</p>
+                                    </div>
+                                </div>
+
+                                <!-- 50 Reais -->
+                                <div class="prize-card">
+                                    <div class="prize-image">
+                                        <img src="/images/50.png" alt="50 Reais" style="width: 120px; height: 120px; object-fit: contain;">
+                                    </div>
+                                    <div class="prize-details">
+                                        <div class="prize-amount">R$ 50,00</div>
+                                        <p class="prize-name">Cinquenta Reais</p>
+                                    </div>
+                                </div>
+
+                                <!-- Capinha transparente para iPhone 15 -->
+                                <div class="prize-card">
+                                    <div class="prize-image">
+                                        <img src="/images/capinhatransparente.png" alt="Capinha transparente para iPhone 15" style="width: 120px; height: 120px; object-fit: contain;">
+                                    </div>
+                                    <div class="prize-details">
+                                        <div class="prize-amount">Capinha iPhone 15</div>
+                                        <p class="prize-name">Transparente</p>
+                                    </div>
+                                </div>
+
+                                <!-- 10 Reais -->
+                                <div class="prize-card">
+                                    <div class="prize-image">
+                                        <img src="/images/10.png" alt="10 Reais" style="width: 120px; height: 120px; object-fit: contain;">
+                                    </div>
+                                    <div class="prize-details">
+                                        <div class="prize-amount">R$ 10,00</div>
+                                        <p class="prize-name">Dez Reais</p>
+                                    </div>
+                                </div>
+
+                                <!-- 5 Reais -->
+                                <div class="prize-card">
+                                    <div class="prize-image">
+                                        <img src="/images/5.png" alt="5 Reais" style="width: 120px; height: 120px; object-fit: contain;">
+                                    </div>
+                                    <div class="prize-details">
+                                        <div class="prize-amount">R$ 5,00</div>
+                                        <p class="prize-name">Cinco Reais</p>
+                                    </div>
+                                </div>
+
+                                <!-- 2 Reais -->
+                                <div class="prize-card">
+                                    <div class="prize-image">
+                                        <img src="/images/2.png" alt="Prêmio de R$ 2,00" style="width: 120px; height: 120px; object-fit: contain;">
+                                    </div>
+                                    <div class="prize-details">
+                                        <div class="prize-amount">R$ 2,00</div>
+                                        <p class="prize-name">Dois Reais</p>
+                                    </div>
+                                </div>
+                                <div class="prize-card">
+                                    <div class="prize-image">
+                                        <img src="/images/1.png" alt="Prêmio de R$ 1,00" style="width: 120px; height: 120px; object-fit: contain;">
+                                    </div>
+                                    <div class="prize-details">
+                                        <div class="prize-amount">R$ 1,00</div>
+                                        <p class="prize-name">1 Real</p>
+                                    </div>
+                                </div>
+                                <div class="prize-card">
+                                    <div class="prize-image">
+                                        <img src="/images/0.50.png" alt="Prêmio de R$ 0,50" style="width: 120px; height: 120px; object-fit: contain;">
+                                    </div>
+                                    <div class="prize-details">
+                                        <div class="prize-amount">R$ 0,50</div>
+                                        <p class="prize-name">Cinquenta Centavos</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                    </div>
+                </div>
+                <div class="banner-side">
+                    <img src="/images/raspadinhamagica.png" alt="Centavo da Sorte" class="game-banner">
+                    <div class="info-box" style="background: linear-gradient(145deg, #1a383600, #1a383600); border-left: 4px solid #00E880; border-radius: 12px; padding: 25px; margin-top: 30px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);">
+                        <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                            <svg style="width: 28px; height: 28px; margin-right: 12px; color: #00E880;" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            <h3 style="margin: 0; color: #fff; font-size: 1.4rem; font-weight: 700; letter-spacing: 0.5px;">COMO JOGAR</h3>
+                        </div>
+                        <ul style="list-style: none; padding: 0; margin: 0;">
+                            <li style="display: flex; align-items: flex-start; margin-bottom: 16px; color: #e2e8f0; line-height: 1.6;">
+                                <span style="display: inline-flex; align-items: center; justify-content: center; min-width: 24px; height: 24px; background: rgba(0, 232, 128, 0.15); border-radius: 50%; margin-right: 12px; color: #00E880; font-weight: bold; font-size: 0.85rem;">1</span>
+                                Reúna 3 imagens iguais e conquiste seu prêmio!
+                            </li>
+                            <li style="display: flex; align-items: flex-start; margin-bottom: 16px; color: #e2e8f0; line-height: 1.6;">
+                                <span style="display: inline-flex; align-items: center; justify-content: center; min-width: 24px; height: 24px; background: rgba(0, 232, 128, 0.15); border-radius: 50%; margin-right: 12px; color: #00E880; font-weight: bold; font-size: 0.85rem;">2</span>
+                                O valor correspondente será creditado automaticamente na sua conta.
+                            </li>
+                            <li style="display: flex; align-items: flex-start; color: #e2e8f0; line-height: 1.6;">
+                                <span style="display: inline-flex; align-items: center; justify-content: center; min-width: 24px; height: 24px; background: rgba(0, 232, 128, 0.15); border-radius: 50%; margin-right: 12px; color: #00E880; font-weight: bold; font-size: 0.85rem;">3</span>
+                                Prefere o produto físico? Entre em contato com nosso suporte!
+                            </li>
+                        </ul>
+                        <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid rgba(255, 255, 255, 0.1);">
+                            <p style="margin: 0; font-size: 0.9rem; color: #94a3b8; display: flex; align-items: center;">
+                                <svg style="width: 18px; height: 18px; margin-right: 8px; color: #00E880;" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                                </svg>
+                                Jogos seguros e pagamentos protegidos
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <div class="footer-logo">
+                    <img src="/images/logo.png" alt="Raspagreen Logo" class="logo-img">                    
+                </div>
+                <p class="footer-about">A maior plataforma de raspadinhas online do Brasil</p>
+                <div class="social-links">
+                    <a href="#" class="social-link" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-link" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Links</h3>
+                <ul class="footer-links">
+                    <li><a href="/">Início</a></li>
+                    <li><a href="#">Como Jogar</a></li>
+                    <li><a href="premios.html">Prêmios</a></li>
+                    <li><a href="#">Termos</a></li>
+                    <li><a href="#">Privacidade</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Suporte</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Ajuda</a></li>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Contato</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Contato</h3>
+                <div class="contact-info">
+                    <p><a href="#"><i class="fas fa-envelope"></i> contato@raspagreen.com.br</a></p>
+                    <p><a href="#"><i class="fas fa-phone"></i> (11) 4002-8874</a></p>
+                </div>
+                <div class="payment-methods">                    
+                    <i class="fab fa-pix" title="Pix"></i>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <div class="container">
+                <p>&copy; 2023 Raspagreen - CNPJ: 48.780.455/0001-01</p>
+                <p class="disclaimer">Proibido para menores de 18 anos. Jogos de entretenimento.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay">
+        <div class="mobile-menu" id="mobileMenu">
+            <nav>
+                <ul>
+                    <li><a href="/">Início</a></li>
+                    <li><a href="/sorteinstantanea.html">Sorte Instantânea</a></li>
+                    <li><a href="/raspasuprema.html">Raspa Suprema</a></li>
+                    <li><a href="/rasparelampago.html">Raspa Relâmpago</a></li>
+                    <li><a href="/raspadinhamagica.html">Raspadinha Mágica</a></li>
+                    <li><a href="/centavodasorte.html" class="active">Centavo da Sorte</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="/js/premios.js"></script>
+    <script>
+        // Game state
+        let gameGrid = [];
+        let revealedCells = [];
+        let canPlay = true;
+        let animationFrame;
+        
+        // Prize values in the game (matching actual image filenames without .png extension)
+        const prizeValues = ['1000', '700', '500', '200', '100', '50', '20', '15', '10', '5', '4', '3', '2', '1real', '0.50'];
+        // Note: Using '1real' instead of '1' and '0.50' instead of '0.5' to match actual filenames
+        
+        // DOM elements
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const mobileMenu = document.querySelector('.mobile-menu');
+        const mobileMenuOverlay = document.querySelector('.mobile-menu-overlay');
+        const mainNav = document.getElementById('mainNav');
+        const body = document.body;
+        
+        // Initialize the game
+        function initGame() {
+            // Hide purchase overlay and enable game
+            const purchaseOverlay = document.getElementById('purchaseOverlay');
+            const purchaseButton = document.getElementById('purchaseButton');
+            
+            if (purchaseOverlay && purchaseButton) {
+                purchaseButton.addEventListener('click', () => {
+                    purchaseOverlay.style.display = 'none';
+                    // Here you would typically handle the purchase flow
+                    // For now, we'll just enable the game
+                    canPlay = true;
+                });
+                
+                // Initially disable the game until purchase
+                canPlay = false;
+            }
+            // Reset game state
+            gameGrid = [];
+            revealedCells = Array(9).fill(false);
+            canPlay = true;
+            
+            // Generate prizes for the grid
+            generatePrizes();
+            
+            // Add click event listeners to cells
+            const cells = document.querySelectorAll('.grid-cell');
+            cells.forEach((cell, index) => {
+                cell.removeEventListener('click', handleCellClick);
+                cell.addEventListener('click', handleCellClick);
+                cell.dataset.index = index;
+                cell.style.backgroundImage = 'none';
+                cell.textContent = '';
+                cell.classList.remove('revealed');
+            });
+        }
+        
+        // Generate prizes for the grid
+        function generatePrizes() {
+            // Reset game grid
+            gameGrid = Array(9).fill(null);
+            
+            // Select a random prize to have two instances
+            const doublePrize = prizeValues[Math.floor(Math.random() * prizeValues.length)];
+            
+            // Find two different random positions for the double prize
+            let pos1, pos2;
+            do {
+                pos1 = Math.floor(Math.random() * 9);
+                pos2 = Math.floor(Math.random() * 9);
+            } while (pos1 === pos2);
+            
+            // Place the double prize
+            gameGrid[pos1] = doublePrize;
+            gameGrid[pos2] = doublePrize;
+            
+            // Fill remaining positions with random unique prizes
+            const remainingPrizes = [...prizeValues].filter(p => p !== doublePrize);
+            const shuffledPrizes = [...remainingPrizes].sort(() => 0.5 - Math.random());
+            
+            for (let i = 0; i < 9; i++) {
+                if (gameGrid[i] === null) {
+                    gameGrid[i] = shuffledPrizes.pop();
+                }
+            }
+        }
+        
+        // Handle cell click
+        function handleCellClick(event) {
+            if (!canPlay) return;
+            
+            const cell = event.currentTarget;
+            const index = parseInt(cell.dataset.index);
+            
+            // If cell is already revealed, do nothing
+            if (revealedCells[index]) return;
+            
+            // Reveal the cell
+            revealedCells[index] = true;
+            cell.classList.add('revealed');
+            
+            // Show the prize image
+            const prizeValue = gameGrid[index];
+            cell.style.backgroundImage = `url('images/${prizeValue}.png')`;
+            cell.style.backgroundSize = 'contain';
+            cell.style.backgroundPosition = 'center';
+            cell.style.backgroundRepeat = 'no-repeat';
+            
+            // Check for game over condition
+            checkGameOver();
+        }
+        
+        // Create or update game over modal
+        function createGameOverModal() {
+            // Remove existing modal if it exists
+            const existingModal = document.getElementById('gameOverModal');
+            if (existingModal) {
+                existingModal.remove();
+            }
+            
+            const modal = document.createElement('div');
+            modal.id = 'gameOverModal';
+            modal.style.display = 'none';
+            modal.style.position = 'fixed';
+            modal.style.top = '0';
+            modal.style.left = '0';
+            modal.style.width = '100%';
+            modal.style.height = '100%';
+            modal.style.backgroundColor = 'rgba(0, 0, 0, 0.9)';
+            modal.style.zIndex = '1000';
+            modal.style.display = 'flex';
+            modal.style.justifyContent = 'center';
+            modal.style.alignItems = 'center';
+            modal.style.flexDirection = 'column';
+            modal.style.color = 'white';
+            modal.style.fontFamily = '"Arial", sans-serif';
+            modal.style.textAlign = 'center';
+            modal.style.padding = '20px';
+            
+            const message = document.createElement('h2');
+            message.textContent = 'QUASE!';
+            message.style.fontSize = '4em';
+            message.style.color = '#00E880';
+            message.style.margin = '0 0 20px 0';
+            message.style.textShadow = '0 0 10px rgba(0, 232, 128, 0.7)';
+            message.style.animation = 'pulse 1.5s infinite';
+            
+            const subMessage = document.createElement('p');
+            subMessage.textContent = 'Você quase conseguiu um prêmio incrível!';
+            subMessage.style.fontSize = '1.5em';
+            subMessage.style.margin = '0 0 40px 0';
+            
+            const button = document.createElement('button');
+            button.textContent = 'TENTAR NOVAMENTE';
+            button.style.padding = '15px 30px';
+            button.style.fontSize = '1.2em';
+            button.style.color = 'white';
+            button.style.backgroundColor = '#00E880';
+            button.style.border = 'none';
+            button.style.borderRadius = '30px';
+            button.style.cursor = 'pointer';
+            button.style.transition = 'all 0.3s';
+            button.style.boxShadow = '0 0 15px rgba(0, 232, 128, 0.5)';
+            button.style.fontWeight = 'bold';
+            button.style.textTransform = 'uppercase';
+            button.style.letterSpacing = '1px';
+            
+            // Hover effect
+            button.onmouseover = () => {
+                button.style.transform = 'scale(1.05)';
+                button.style.boxShadow = '0 0 25px rgba(0, 232, 128, 0.8)';
+            };
+            
+            button.onmouseout = () => {
+                button.style.transform = 'scale(1)';
+                button.style.boxShadow = '0 0 15px rgba(0, 232, 128, 0.5)';
+            };
+            
+            // Click handler
+            button.onclick = () => {
+                modal.style.animation = 'fadeOut 0.5s forwards';
+                setTimeout(() => {
+                    modal.style.display = 'none';
+                    initGame();
+                }, 500);
+            };
+            
+            // Add animation keyframes
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes pulse {
+                    0% { transform: scale(1); }
+                    50% { transform: scale(1.1); }
+                    100% { transform: scale(1); }
+                }
+                @keyframes fadeOut {
+                    from { opacity: 1; }
+                    to { opacity: 0; }
+                }
+            `;
+            
+            document.head.appendChild(style);
+            modal.appendChild(message);
+            modal.appendChild(subMessage);
+            modal.appendChild(button);
+            document.body.appendChild(modal);
+            
+            // Add fade-in animation
+            modal.style.animation = 'fadeIn 0.5s';
+            return modal;
+        }
+        
+        // Check if the game is over
+        function checkGameOver() {
+            const revealedValues = [];
+            
+            // Collect all revealed values
+            revealedCells.forEach((isRevealed, index) => {
+                if (isRevealed) {
+                    revealedValues.push(gameGrid[index]);
+                }
+            });
+            
+            // Check for three of a kind (which should never happen according to rules)
+            const valueCounts = {};
+            revealedValues.forEach(value => {
+                valueCounts[value] = (valueCounts[value] || 0) + 1;
+                if (valueCounts[value] === 3) {
+                    // This should never happen as per game rules
+                    console.error('Game logic error: Three of a kind found!');
+                }
+            });
+            
+            // Check if all cells are revealed
+            if (revealedCells.every(cell => cell === true)) {
+                canPlay = false;
+                setTimeout(() => {
+createGameOverModal();
+                }, 500);
+            }
+        }
+        
+        // Toggle mobile menu
+        function toggleMobileMenu() {
+            if (mobileMenu && mobileMenuOverlay) {
+                mobileMenu.classList.toggle('active');
+                mobileMenuOverlay.classList.toggle('active');
+                document.body.classList.toggle('no-scroll');
+            } else if (mainNav) {
+                // Fallback for alternative menu structure
+                mainNav.classList.toggle('active');
+                if (mobileMenuOverlay) mobileMenuOverlay.classList.toggle('active');
+                document.body.classList.toggle('menu-open');
+            }
+        }
+        
+        // Initialize event listeners
+        function initEventListeners() {
+            // Mobile menu toggle
+            if (mobileMenuBtn) {
+                mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+            }
+            
+            // Mobile menu overlay
+            if (mobileMenuOverlay) {
+                mobileMenuOverlay.addEventListener('click', toggleMobileMenu);
+            }
+            
+            // Close menu when clicking on a nav link
+            const navLinks = document.querySelectorAll('.mobile-menu a, #mainNav a');
+            navLinks.forEach(link => {
+                link.addEventListener('click', toggleMobileMenu);
+            });
+        }
+        
+        
+        // Initialize everything when the DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize game and event listeners
+            initGame();
+            initEventListeners();
+        });
+    </script>
+</body>
+</html>
