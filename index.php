@@ -24,14 +24,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 
 // Roteamento por querystring: ?action=pix_create ou ?action=pix_status&id=...
 $action = isset($_GET['action']) ? $_GET['action'] : null;
-if ($action === 'pix_create' && $_SERVER['REQUEST_METHOD'] === 'POST') {
+if ($action === 'pix_create') {
     header('Content-Type: application/json');
     try {
-        // corpo JSON: { amount: 0.5, description: '...' }
+        // Suportar JSON (POST), form-encoded (POST) e fallback por GET
+        $amount = 0.5;
+        $description = 'Raspadinha Centavo da Sorte';
+
+        // 1) Tentar JSON
         $raw = file_get_contents('php://input');
-        $data = json_decode($raw, true) ?: [];
-        $amount = isset($data['amount']) ? floatval($data['amount']) : 0.5;
-        $description = isset($data['description']) ? $data['description'] : 'Raspadinha Centavo da Sorte';
+        if ($raw) {
+            $data = json_decode($raw, true);
+            if (json_last_error() === JSON_ERROR_NONE && is_array($data)) {
+                if (isset($data['amount'])) $amount = floatval($data['amount']);
+                if (isset($data['description'])) $description = $data['description'];
+            }
+        }
+
+        // 2) Tentar application/x-www-form-urlencoded
+        if (isset($_POST['amount'])) $amount = floatval($_POST['amount']);
+        if (isset($_POST['description'])) $description = $_POST['description'];
+
+        // 3) Fallback GET (debug)
+        if (isset($_GET['amount'])) $amount = floatval($_GET['amount']);
+        if (isset($_GET['description'])) $description = $_GET['description'];
 
         $client = new PaymentClient();
         $payment = $client->create([

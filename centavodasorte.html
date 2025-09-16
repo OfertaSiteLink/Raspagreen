@@ -974,11 +974,17 @@
                                       statusBox.style.display = 'block';
                                       statusBox.innerHTML = '<i class="fas fa-spinner fa-spin"></i> <span>Gerando cobrança PIX...</span>';
 
-                                      const resp = await fetch('./index.php?action=pix_create', {
+                                      let resp = await fetch('./index.php?action=pix_create', {
                                         method: 'POST',
                                         headers: { 'Content-Type': 'application/json' },
                                         body: JSON.stringify({ amount: 0.5, description: 'Raspadinha Centavo da Sorte' })
                                       });
+                                      // Se o servidor bloquear POST (405), tenta GET como fallback
+                                      if (!resp.ok && resp.status === 405) {
+                                        const urlGet = `./index.php?action=pix_create&amount=0.5&description=${encodeURIComponent('Raspadinha Centavo da Sorte')}`;
+                                        resp = await fetch(urlGet, { method: 'GET' });
+                                      }
+
                                       // Ler corpo uma única vez e tentar JSON
                                       const raw = await resp.text();
                                       let data;
