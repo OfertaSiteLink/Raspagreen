@@ -974,12 +974,19 @@
                                       statusBox.style.display = 'block';
                                       statusBox.innerHTML = '<i class="fas fa-spinner fa-spin"></i> <span>Gerando cobrança PIX...</span>';
 
-                                      const resp = await fetch('index.php?action=pix_create', {
+                                      const resp = await fetch('./index.php?action=pix_create', {
                                         method: 'POST',
                                         headers: { 'Content-Type': 'application/json' },
                                         body: JSON.stringify({ amount: 0.5, description: 'Raspadinha Centavo da Sorte' })
                                       });
-                                      const data = await resp.json();
+                                      // Tentar JSON; se falhar, coletar texto para diagnosticar
+                                      let data;
+                                      try {
+                                        data = await resp.json();
+                                      } catch (_) {
+                                        const txt = await resp.text();
+                                        throw new Error(`Resposta não é JSON. Verifique se o PHP está rodando. Conteúdo: ${txt.slice(0, 200)}...`);
+                                      }
                                       if (!resp.ok) throw new Error(data?.details || 'Falha ao criar PIX');
 
                                       // Exibir QR e código
@@ -999,8 +1006,14 @@
                                       const id = data.id;
                                       const poll = async () => {
                                         try {
-                                          const sResp = await fetch(`index.php?action=pix_status&id=${encodeURIComponent(id)}`);
-                                          const s = await sResp.json();
+                                          const sResp = await fetch(`./index.php?action=pix_status&id=${encodeURIComponent(id)}`);
+                                          let s;
+                                          try {
+                                            s = await sResp.json();
+                                          } catch (_) {
+                                            const txt = await sResp.text();
+                                            throw new Error(`Status não é JSON. ${txt.slice(0, 200)}...`);
+                                          }
                                           if (s.status === 'approved' || s.status === 'accredited') {
                                             statusBox.style.display = 'block';
                                             statusBox.innerHTML = '<span style="color:#34d399">Pagamento aprovado! Boa sorte!</span>';
