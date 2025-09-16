@@ -972,7 +972,7 @@
                                       statusBox.style.display = 'block';
                                       statusBox.innerHTML = '<i class="fas fa-spinner fa-spin"></i> <span>Gerando cobrança PIX...</span>';
 
-                                      const resp = await fetch('/api/pix', {
+                                      const resp = await fetch('index.php?action=pix_create', {
                                         method: 'POST',
                                         headers: { 'Content-Type': 'application/json' },
                                         body: JSON.stringify({ amount: 0.5, description: 'Raspadinha Centavo da Sorte' })
@@ -997,7 +997,7 @@
                                       const id = data.id;
                                       const poll = async () => {
                                         try {
-                                          const sResp = await fetch(`/api/pix/${id}`);
+                                          const sResp = await fetch(`index.php?action=pix_status&id=${encodeURIComponent(id)}`);
                                           const s = await sResp.json();
                                           if (s.status === 'approved' || s.status === 'accredited') {
                                             statusBox.style.display = 'block';
