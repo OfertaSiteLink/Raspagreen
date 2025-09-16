@@ -910,7 +910,7 @@
                                 <div id="purchaseContent">
                                     <p style="margin: 20px auto 15px; text-align: center; max-width: 300px; font-size: 1.1rem;">Pague R$ 0,50 para desbloquear a raspadinha!</p>
 
-                                    <button type="button" class="purchase-button" style="width: 100%; padding: 12px; background: linear-gradient(135deg, #00E880 0%, #00C96E 100%); border: none; border-radius: 8px; color: #0f172a; font-weight: 600; font-size: 1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                                    <button id="pixPayButton" type="button" class="purchase-button" style="width: 100%; padding: 12px; background: linear-gradient(135deg, #00E880 0%, #00C96E 100%); border: none; border-radius: 8px; color: #0f172a; font-weight: 600; font-size: 1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px;">
                                         <img src="./images/pix.png" alt="PIX" style="width: 20px; height: 20px;">
                                         PAGAR R$ 0,50 COM PIX
                                     </button>
@@ -930,6 +930,119 @@
                                         <i class="fas fa-spinner fa-spin"></i> <span>Verificando pagamento...</span>
                                     </div>
                                 </div>
+                                <script>
+                                (function() {
+                                  const payBtn = document.getElementById('pixPayButton');
+                                  const pixSection = document.getElementById('pixPayment');
+                                  const qrImg = document.getElementById('pixQrCodeImg');
+                                  const pixCodeEl = document.getElementById('pixCode');
+                                  const copyBtn = document.getElementById('copyPixCode');
+                                  const timerEl = document.getElementById('pixTimer');
+                                  const statusBox = document.getElementById('paymentStatus');
+                                  let pollInterval = null;
+                                  let expireAt = null;
+
+                                  function formatTimeLeft(ms) {
+                                    const total = Math.max(0, Math.floor(ms / 1000));
+                                    const m = String(Math.floor(total / 60)).padStart(2, '0');
+                                    const s = String(total % 60).padStart(2, '0');
+                                    return `${m}:${s}`;
+                                  }
+
+                                  function startTimer() {
+                                    const tick = () => {
+                                      if (!expireAt) return;
+                                      const left = expireAt - Date.now();
+                                      timerEl.textContent = formatTimeLeft(left);
+                                      if (left <= 0) {
+                                        clearInterval(timerId);
+                                        if (pollInterval) clearInterval(pollInterval);
+                                        statusBox.style.display = 'block';
+                                        statusBox.innerHTML = '<span style="color:#f87171">Pagamento expirado. Tente novamente.</span>';
+                                        payBtn.disabled = false;
+                                      }
+                                    };
+                                    const timerId = setInterval(tick, 1000);
+                                    tick();
+                                  }
+
+                                  async function createPix() {
+                                    try {
+                                      payBtn.disabled = true;
+                                      statusBox.style.display = 'block';
+                                      statusBox.innerHTML = '<i class="fas fa-spinner fa-spin"></i> <span>Gerando cobrança PIX...</span>';
+
+                                      const resp = await fetch('/api/pix', {
+                                        method: 'POST',
+                                        headers: { 'Content-Type': 'application/json' },
+                                        body: JSON.stringify({ amount: 0.5, description: 'Raspadinha Centavo da Sorte' })
+                                      });
+                                      const data = await resp.json();
+                                      if (!resp.ok) throw new Error(data?.details || 'Falha ao criar PIX');
+
+                                      // Exibir QR e código
+                                      if (data.qr_code_base64) {
+                                        qrImg.src = `data:image/png;base64,${data.qr_code_base64}`;
+                                      }
+                                      pixCodeEl.textContent = data.qr_code || '';
+                                      pixSection.style.display = 'block';
+
+                                      // Timer até expiração se fornecido
+                                      if (data.expiration_time) {
+                                        expireAt = new Date(data.expiration_time).getTime();
+                                        startTimer();
+                                      }
+
+                                      // Iniciar polling do status
+                                      const id = data.id;
+                                      const poll = async () => {
+                                        try {
+                                          const sResp = await fetch(`/api/pix/${id}`);
+                                          const s = await sResp.json();
+                                          if (s.status === 'approved' || s.status === 'accredited') {
+                                            statusBox.style.display = 'block';
+                                            statusBox.innerHTML = '<span style="color:#34d399">Pagamento aprovado! Boa sorte!</span>';
+                                            clearInterval(pollInterval);
+                                            payBtn.disabled = false;
+                                            // Opcional: fechar modal ou desbloquear jogo aqui
+                                          } else if (s.status === 'cancelled' || s.status === 'rejected' || s.status === 'expired') {
+                                            statusBox.style.display = 'block';
+                                            statusBox.innerHTML = '<span style="color:#f87171">Pagamento não aprovado.</span>';
+                                            clearInterval(pollInterval);
+                                            payBtn.disabled = false;
+                                          } else {
+                                            statusBox.style.display = 'block';
+                                            statusBox.innerHTML = '<i class="fas fa-spinner fa-spin"></i> <span>Aguardando pagamento...</span>';
+                                          }
+                                        } catch (e) {
+                                          // mantém polling a despeito de falhas intermitentes
+                                        }
+                                      };
+                                      pollInterval = setInterval(poll, 5000);
+                                      poll();
+
+                                    } catch (e) {
+                                      statusBox.style.display = 'block';
+                                      statusBox.innerHTML = `<span style="color:#f87171">${e.message}</span>`;
+                                      payBtn.disabled = false;
+                                    }
+                                  }
+
+                                  if (payBtn) {
+                                    payBtn.addEventListener('click', createPix);
+                                  }
+
+                                  if (copyBtn) {
+                                    copyBtn.addEventListener('click', async () => {
+                                      try {
+                                        await navigator.clipboard.writeText(pixCodeEl.textContent || '');
+                                        copyBtn.textContent = 'Copiado!';
+                                        setTimeout(() => (copyBtn.textContent = 'Copiar código PIX'), 1500);
+                                      } catch {}
+                                    });
+                                  }
+                                })();
+                                </script>
                             </div>
                         </div>
                         <div class="game-grid">
