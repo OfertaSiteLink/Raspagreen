@@ -1,5 +1,22 @@
 <?php
-require_once __DIR__ . '/vendor/autoload.php';
+// Exibir erros em desenvolvimento para facilitar diagnóstico
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
+
+// Garantir que o autoload do Composer existe
+$autoload = __DIR__ . '/vendor/autoload.php';
+if (!file_exists($autoload)) {
+    header('Content-Type: application/json');
+    header('Access-Control-Allow-Origin: *');
+    header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
+    header('Access-Control-Allow-Headers: Content-Type, Authorization');
+    echo json_encode([
+        'error' => 'Composer autoload não encontrado',
+        'details' => 'Execute "composer require mercadopago/dx-php" na raiz do projeto para instalar dependências.'
+    ]);
+    exit;
+}
+require_once $autoload;
 
 use MercadoPago\MercadoPagoConfig;
 use MercadoPago\Client\Payment\RequestOptions;
